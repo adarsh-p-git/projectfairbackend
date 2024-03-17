@@ -1,25 +1,35 @@
-// loads .env file contents into process.env by default
-const express = require('express')
-require('dotenv').config()
-const cors=require('cors')
-const router=require('./Router/router')
+// loads .env file contenets into process .env by default
 
+require('dotenv').config();
+const express = require('express')
+const cors = require('cors') 
+const router = require('./Router/router')
 require('./DB/connection')
+
+
 //create express server
 
-const pfServer=express()
+const pfServer = express()
 
-pfServer.use(cors()) //use cors
+//data sharing
+pfServer.use(cors())
+//parse json
+pfServer.use(express.json())
 
-pfServer.use(express.json()) //parse json
 pfServer.use(router)
 
-const PORT=4000 || process.env.PORT
-pfServer.listen(PORT,()=>{
-    console.log(`Project Fair started running  at PORT:${PORT} and waiting for the client request!!!`)
+const PORT =4000 || process.env.PORT
+
+pfServer.listen(PORT, () => {
+  console.log(`Project Fair started running at port:${PORT} and waiting for the client request!`);
 })
 
-pfServer.get('/',(req,res)=>
-{
-    res.send(`<h1>Project Fair started and waiting for cleint request </h1>`)
+pfServer.get( '/', (req , res) =>{
+
+    res.send('<h1>Project  Fair Server started and waiting for the client request!!!</h1>');
+
+})
+
+pfServer.post('/' , (req ,res)=>{
+    res.send('post request')
 })

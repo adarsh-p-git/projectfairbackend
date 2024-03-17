@@ -1,24 +1,26 @@
-const mongoose = require('mongoose')
+const mongoose =  require('mongoose')
 const validator=require("validator")
+
+
 const userSchema = new mongoose.Schema({
-    username : {
+    username:{
         type:String,
-        required: true,
-        min: [3,'Must be atleast 3,got {VALUE'],
+        required:true,
+        min:[3, 'must be at least 3, got {VALUE}'],
     },
-    email : {
+    email:{
         type:String,
-        required: true,
-        unique:true,
+        required:true,
+        unique: true,
         validator(value){
             if(!validator.isEmail(value)){
-                throw new Error ("Invalid Email")
+                throw new Error("Invalid Email")
             }
         }
     },
     password:{
         type:String,
-        required: true
+        required:true,
     },
     github:{
         type:String,
@@ -26,7 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     linkedin:{
         type:String,
-       
+        
     },
     profile:{
         type:String,
@@ -34,5 +36,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const users= mongoose.model("users",userSchema)
-module.exports=users
+
+const users = mongoose.model('users',userSchema)
+
+module.exports=users;
